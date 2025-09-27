@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f0f2f5;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+      width: 300px;
+    }
+    h2 {
+      text-align: center;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    ul {
+      margin-top: 15px;
+      padding: 0;
+      list-style: none;
+    }
+    li {
+      background: #f8f9fa;
+      margin: 5px 0;
+      padding: 8px;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    .total {
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>💰 Expense Tracker</h2>
+    <input type="text" id="title" placeholder="Expense Title">
+    <input type="number" id="amount" placeholder="Amount">
+    <select id="category">
+      <option value="Food">Food</option>
+      <option value="Travel">Travel</option>
+      <option value="Shopping">Shopping</option>
+      <option value="Other">Other</option>
+    </select>
+    <button onclick="addExpense()">Add Expense</button>
+    
+    <div class="total">Total: ₹<span id="total">0</span></div>
+    <ul id="expense-list"></ul>
+  </div>
+
+  <script>
+    let total = 0;
+
+    function addExpense() {
+      let title = document.getElementById("title").value;
+      let amount = parseInt(document.getElementById("amount").value);
+      let category = document.getElementById("category").value;
+
+      if (title === "" || isNaN(amount) || amount <= 0) {
+        alert("Please enter valid expense details!");
+        return;
+      }
+
+      // Update total
+      total += amount;
+      document.getElementById("total").innerText = total;
+
+      // Add expense to list
+      let li = document.createElement("li");
+      li.innerText = `${title} - ₹${amount} (${category})`;
+      document.getElementById("expense-list").appendChild(li);
+
+      // Reset inputs
+      document.getElementById("title").value = "";
+      document.getElementById("amount").value = "";
+      document.getElementById("category").value = "Food";
+    }
+  </script>
+</body>
+</html>
